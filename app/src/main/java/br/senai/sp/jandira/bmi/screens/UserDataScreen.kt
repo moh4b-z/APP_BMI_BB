@@ -241,9 +241,8 @@ fun UserDataScreen(
                                 imeAction = ImeAction.Next
                             ),
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = Color(0xFF5608A4),
-                                cursorColor = Color(0xFFBA88FF),
-                                unfocusedLabelColor = Color(0xFFBA88FF)
+                                unfocusedLabelColor = Color(0xFFBA88FF),
+                                cursorColor = Color(0xFFBA88FF)
                             )
                         )
                         OutlinedTextField(
@@ -272,9 +271,8 @@ fun UserDataScreen(
                                 imeAction = ImeAction.Next
                             ),
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = Color(0xFF5608A4),
-                                cursorColor = Color(0xFFBA88FF),
-                                unfocusedLabelColor = Color(0xFFBA88FF)
+                                unfocusedLabelColor = Color(0xFFBA88FF),
+                                cursorColor = Color(0xFFBA88FF)
                             )
                         )
                         OutlinedTextField(
@@ -302,7 +300,6 @@ fun UserDataScreen(
                                 imeAction = ImeAction.Done
                             ),
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = Color(0xFF5608A4),
                                 cursorColor = Color(0xFFBA88FF),
                                 unfocusedLabelColor = Color(0xFFBA88FF)
                             )
