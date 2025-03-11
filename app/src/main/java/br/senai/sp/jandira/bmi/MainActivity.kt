@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.bmi.screens.TelaInical
+import br.senai.sp.jandira.bmi.screens.UserDataScreen
 import br.senai.sp.jandira.bmi.ui.theme.BMITheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +23,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BMITheme {
-                TelaInical()
             }
         }
     }

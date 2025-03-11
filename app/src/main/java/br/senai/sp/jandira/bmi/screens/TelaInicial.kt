@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.AppBlocking
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.Button
@@ -112,7 +113,7 @@ fun TelaInical(
                             },
                             leadingIcon = {
                                 Icon(
-                                    imageVector = Icons.Default.AppBlocking,
+                                    imageVector = Icons.Default.AccountCircle,
                                     contentDescription = "",
                                     tint = Color(0xFF5608A4)
                                 )

@@ -5,4 +5,12 @@
     <string name="what">What\'s your name</string>
     <string name="whatname">NAME</string>
     <string name="next">Next</string>
+
+    <string name="titleHi">Hi!</string>
+    <string name="buttonMale">Male</string>
+    <string name="buttonFemale">Female</string>
+    <string name="inputAge">Age</string>
+    <string name="inputWeight">Weight</string>
+    <string name="inputHeight">Height</string>
+    <string name="buttonCalculate">Calculate</string>
 </resources>
