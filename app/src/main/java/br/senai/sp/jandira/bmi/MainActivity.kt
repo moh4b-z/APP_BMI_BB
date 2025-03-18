@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     composable(
                         route = "user_data"
                     ){
-                        UserDataScreen()
+                        UserDataScreen(null)
                     }
                 }
             }

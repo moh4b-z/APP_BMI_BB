@@ -42,6 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -51,13 +52,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 import org.w3c.dom.Text
 
 @Composable
 fun UserDataScreen(
-    modifier: Modifier = Modifier
+    navController: NavHostController?
 ) {
+    var context = LocalContext.current
     var ageState = remember {
         mutableStateOf(value = "")
     }
@@ -65,6 +68,14 @@ fun UserDataScreen(
         mutableStateOf(value = "")
     }
     var heightState = remember {
+        mutableStateOf(value = "")
+    }
+
+
+    var isErrorStateInputAge = remember {
+        mutableStateOf(value = false)
+    }
+    var erroMessageState = remember {
         mutableStateOf(value = "")
     }
     Box(
@@ -226,7 +237,7 @@ fun UserDataScreen(
                             shape = RoundedCornerShape(16.dp),
                             label = {
                                 Text(
-                                    text = stringResource(R.string.inputAge)
+                                    text = stringResource(R.string.Age)
                                 )
                             },
                             leadingIcon = {
@@ -243,7 +254,14 @@ fun UserDataScreen(
                             colors = OutlinedTextFieldDefaults.colors(
                                 unfocusedLabelColor = Color(0xFFBA88FF),
                                 cursorColor = Color(0xFFBA88FF)
-                            )
+                            ),
+                            isError = isErrorStateInputAge.value,
+                            supportingText = {
+                                Text(
+                                    text = erroMessageState.value,
+                                    color = Color.Red
+                                )
+                            }
                         )
                         OutlinedTextField(
                             value = weightState.value,
@@ -256,7 +274,7 @@ fun UserDataScreen(
                             shape = RoundedCornerShape(16.dp),
                             label = {
                                 Text(
-                                    text = stringResource(R.string.inputWeight)
+                                    text = stringResource(R.string.Weight)
                                 )
                             },
                             leadingIcon = {
@@ -285,7 +303,7 @@ fun UserDataScreen(
                             shape = RoundedCornerShape(16.dp),
                             label = {
                                 Text(
-                                    text = stringResource(R.string.inputHeight)
+                                    text = stringResource(R.string.Height)
                                 )
                             },
                             leadingIcon = {
@@ -307,7 +325,14 @@ fun UserDataScreen(
                     }
 
                     Button(
-                        onClick = {},
+                        onClick = {
+                            if (ageState.value.length <= 0){
+                                isErrorStateInputAge.value = true
+                                erroMessageState.value = context.getString(R.string.support_name)
+                            }else{
+                                navController?.navigate("user_data")
+                            }
+                        },
                         modifier = Modifier
                             .fillMaxWidth(),
                         border = BorderStroke(
@@ -338,5 +363,5 @@ fun UserDataScreen(
 @Preview(showSystemUi = true)
 @Composable
 private fun UserDataScreenPreview() {
-    UserDataScreen()
+    UserDataScreen(null)
 }

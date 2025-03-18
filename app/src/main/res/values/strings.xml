@@ -10,8 +10,16 @@
     <string name="titleHi">Hi!</string>
     <string name="buttonMale">Male</string>
     <string name="buttonFemale">Female</string>
-    <string name="inputAge">Age</string>
-    <string name="inputWeight">Weight</string>
-    <string name="inputHeight">Height</string>
+    <string name="Age">Age</string>
+    <string name="Weight">Weight</string>
+    <string name="Height">Height</string>
     <string name="buttonCalculate">Calculate</string>
+    <string name="support_age">The name is mandatory and must have 3 or more letters.</string>
+    <string name="support_wheight">The name is mandatory and must have 3 or more letters.</string>
+    <string name="support_height">The name is mandatory and must have 3 or more letters.</string>
+
+    <string name="titleYourBMIResult">Your BMI Result</string>
+    <string name="YouHaveClassIObesity">You have Class I Obesity.</string>
+    <string name="buttonNewCalc">New Calc</string>
+    <string name="exampleNumber">30,6</string>
 </resources>
