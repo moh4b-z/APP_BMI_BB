@@ -14,7 +14,7 @@
     <string name="Weight">Weight</string>
     <string name="Height">Height</string>
     <string name="buttonCalculate">Calculate</string>
-    <string name="support_age">The name is mandatory and must have 3 or more letters.</string>
+    <string name="supportEmptyField">The field is mandatory</string>
     <string name="support_wheight">The name is mandatory and must have 3 or more letters.</string>
     <string name="support_height">The name is mandatory and must have 3 or more letters.</string>
 

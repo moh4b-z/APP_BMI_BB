@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.senai.sp.jandira.bmi.screens.BMIResultSreern
 import br.senai.sp.jandira.bmi.screens.TelaInical
 import br.senai.sp.jandira.bmi.screens.UserDataScreen
 import br.senai.sp.jandira.bmi.ui.theme.BMITheme
@@ -30,7 +31,12 @@ class MainActivity : ComponentActivity() {
                     composable(
                         route = "user_data"
                     ){
-                        UserDataScreen(null)
+                        UserDataScreen(navController)
+                    }
+                    composable(
+                        route = "result_sreern"
+                    ){
+                        BMIResultSreern(navController)
                     }
                 }
             }

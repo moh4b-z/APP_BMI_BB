@@ -75,7 +75,21 @@ fun UserDataScreen(
     var isErrorStateInputAge = remember {
         mutableStateOf(value = false)
     }
-    var erroMessageState = remember {
+    var erroMessageStateAge = remember {
+        mutableStateOf(value = "")
+    }
+
+    var isErrorStateInputWeight = remember {
+        mutableStateOf(value = false)
+    }
+    var erroMessageStateWeight = remember {
+        mutableStateOf(value = "")
+    }
+
+    var isErrorStateInputHeight = remember {
+        mutableStateOf(value = false)
+    }
+    var erroMessageStateHeight = remember {
         mutableStateOf(value = "")
     }
     Box(
@@ -258,7 +272,7 @@ fun UserDataScreen(
                             isError = isErrorStateInputAge.value,
                             supportingText = {
                                 Text(
-                                    text = erroMessageState.value,
+                                    text = erroMessageStateAge.value,
                                     color = Color.Red
                                 )
                             }
@@ -291,7 +305,14 @@ fun UserDataScreen(
                             colors = OutlinedTextFieldDefaults.colors(
                                 unfocusedLabelColor = Color(0xFFBA88FF),
                                 cursorColor = Color(0xFFBA88FF)
-                            )
+                            ),
+                            isError = isErrorStateInputWeight.value,
+                            supportingText = {
+                                Text(
+                                    text = erroMessageStateWeight.value,
+                                    color = Color.Red
+                                )
+                            }
                         )
                         OutlinedTextField(
                             value = heightState.value,
@@ -320,17 +341,33 @@ fun UserDataScreen(
                             colors = OutlinedTextFieldDefaults.colors(
                                 cursorColor = Color(0xFFBA88FF),
                                 unfocusedLabelColor = Color(0xFFBA88FF)
-                            )
+                            ),
+                            isError = isErrorStateInputHeight.value,
+                            supportingText = {
+                                Text(
+                                    text = erroMessageStateHeight.value,
+                                    color = Color.Red
+                                )
+                            }
                         )
                     }
 
                     Button(
                         onClick = {
-                            if (ageState.value.length <= 0){
+                            if (ageState.value.length == 0){
                                 isErrorStateInputAge.value = true
-                                erroMessageState.value = context.getString(R.string.support_name)
+                                erroMessageStateAge.value = context.getString(R.string.supportEmptyField)
+                            }else if(weightState.value.length == 0){
+                                isErrorStateInputWeight.value = true
+                                erroMessageStateWeight.value = context.getString(R.string.supportEmptyField)
+                            }else if(heightState.value.length == 0){
+                                isErrorStateInputHeight.value = true
+                                erroMessageStateHeight.value = context.getString(R.string.supportEmptyField)
                             }else{
-                                navController?.navigate("user_data")
+                                isErrorStateInputAge.value = false
+                                isErrorStateInputWeight.value = false
+                                isErrorStateInputHeight.value = false
+                                navController?.navigate("result_sreern")
                             }
                         },
                         modifier = Modifier
