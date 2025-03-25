@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.bmi.screens
 
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -60,38 +61,54 @@ import org.w3c.dom.Text
 fun UserDataScreen(
     navController: NavHostController?
 ) {
-    var context = LocalContext.current
-    var ageState = remember {
+    val context = LocalContext.current
+    val ageState = remember {
         mutableStateOf(value = "")
     }
-    var weightState = remember {
+    val weightState = remember {
         mutableStateOf(value = "")
     }
-    var heightState = remember {
+    val heightState = remember {
         mutableStateOf(value = "")
     }
 
 
-    var isErrorStateInputAge = remember {
+    val isErrorStateInputAge = remember {
         mutableStateOf(value = false)
     }
-    var erroMessageStateAge = remember {
+    val erroMessageStateAge = remember {
         mutableStateOf(value = "")
     }
 
-    var isErrorStateInputWeight = remember {
+    val isErrorStateInputWeight = remember {
         mutableStateOf(value = false)
     }
-    var erroMessageStateWeight = remember {
+    val erroMessageStateWeight = remember {
         mutableStateOf(value = "")
     }
 
-    var isErrorStateInputHeight = remember {
+    val isErrorStateInputHeight = remember {
         mutableStateOf(value = false)
     }
-    var erroMessageStateHeight = remember {
+    val erroMessageStateHeight = remember {
         mutableStateOf(value = "")
     }
+
+    //abrie o arquivo usuario.xml
+    // pegar os dados dele
+    val sharedUserFile = context
+        .getSharedPreferences(
+            "user",
+            Context.MODE_PRIVATE
+        )
+
+    val editor = sharedUserFile.edit()
+
+
+    val userName = sharedUserFile.getString(
+        "user_name",
+        "Name not found!"
+    )
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -114,8 +131,8 @@ fun UserDataScreen(
                 modifier = Modifier
                     .weight(1f)
                     .padding(10.dp),
-                text = stringResource(R.string.titleHi),
-                fontSize = 68.sp,
+                text = stringResource(R.string.titleHi) + " $userName!",
+                fontSize = 48.sp,
                 color = Color.White,
 
             )
@@ -357,17 +374,41 @@ fun UserDataScreen(
                             if (ageState.value.length == 0){
                                 isErrorStateInputAge.value = true
                                 erroMessageStateAge.value = context.getString(R.string.supportEmptyField)
+
                             }else if(weightState.value.length == 0){
                                 isErrorStateInputWeight.value = true
                                 erroMessageStateWeight.value = context.getString(R.string.supportEmptyField)
+
                             }else if(heightState.value.length == 0){
                                 isErrorStateInputHeight.value = true
                                 erroMessageStateHeight.value = context.getString(R.string.supportEmptyField)
+
+                            }else if (ageState.value.toIntOrNull() == null){
+                                isErrorStateInputAge.value = true
+                                erroMessageStateAge.value = context.getString(R.string.supportTextFieldForInt)
+
+                            }else if(weightState.value.toIntOrNull() == null){
+                                isErrorStateInputWeight.value = true
+                                erroMessageStateWeight.value = context.getString(R.string.supportTextFieldForInt)
+
+                            }else if(heightState.value.toIntOrNull() == null){
+                                isErrorStateInputHeight.value = true
+                                erroMessageStateHeight.value = context.getString(R.string.supportTextFieldForInt)
+
                             }else{
-                                isErrorStateInputAge.value = false
-                                isErrorStateInputWeight.value = false
-                                isErrorStateInputHeight.value = false
-                                navController?.navigate("result_sreern")
+                                    isErrorStateInputAge.value = false
+                                    isErrorStateInputWeight.value = false
+                                    isErrorStateInputHeight.value = false
+
+
+
+
+                                    editor.putInt("user_age", ageState.value.trim().toInt())
+                                    editor.putInt("user_weight", weightState.value.trim().toInt())
+                                    editor.putInt("user_height", heightState.value.trim().toInt())
+                                    editor.apply()
+
+                                    navController?.navigate("result_sreern")
                             }
                         },
                         modifier = Modifier

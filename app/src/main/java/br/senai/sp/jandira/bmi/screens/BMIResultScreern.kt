@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.bmi.screens
 
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -57,11 +58,33 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 import org.w3c.dom.Text
+import java.util.Locale
 
 @Composable
 fun BMIResultSreern(
     navController: NavHostController?
 ) {
+    val context = LocalContext.current
+    val sharedUserFile = context
+        .getSharedPreferences(
+            "user",
+            Context.MODE_PRIVATE
+        )
+
+    val userAge = sharedUserFile.getInt(
+        "user_age",
+        0
+    )
+    val userWeight = sharedUserFile.getInt(
+        "user_weight",
+        0
+    )
+    val userHeight = sharedUserFile.getInt(
+        "user_height",
+        0
+    ).toDouble()
+    val height = userHeight / 100
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -169,7 +192,7 @@ fun BMIResultSreern(
                                         fontSize = 20.sp,
                                     )
                                     Text(
-                                        text = stringResource(R.string.exampleNumber),
+                                        text = "$userAge",
                                         fontSize = 22.sp,
                                         fontWeight = FontWeight.Bold
                                     )
@@ -186,7 +209,7 @@ fun BMIResultSreern(
                                         fontSize = 20.sp,
                                     )
                                     Text(
-                                        text = stringResource(R.string.exampleNumber),
+                                        text = "$userWeight Kg",
                                         fontSize = 22.sp,
                                         fontWeight = FontWeight.Bold
                                     )
@@ -203,7 +226,11 @@ fun BMIResultSreern(
                                         fontSize = 20.sp,
                                     )
                                     Text(
-                                        text = stringResource(R.string.exampleNumber),
+                                        text = String.format(
+                                            Locale.getDefault(),
+                                            "%.2f",
+                                            height
+                                        ),
                                         fontSize = 22.sp,
                                         fontWeight = FontWeight.Bold
                                     )
@@ -224,6 +251,7 @@ fun BMIResultSreern(
 
                     Button(
                         onClick = {
+                            navController?.navigate("home")
                         },
                         modifier = Modifier
                             .fillMaxWidth()

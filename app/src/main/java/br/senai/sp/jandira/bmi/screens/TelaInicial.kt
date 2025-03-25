@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi.screens
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -30,6 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,16 +44,18 @@ import br.senai.sp.jandira.bmi.R
 fun TelaInical(
     navController: NavHostController?
 ) {
-    var nomeState = remember {
+    val nomeState = remember {
         mutableStateOf(value = "")
     }
-    var isErrorStateInputName = remember {
+    val isErrorStateInputName = remember {
         mutableStateOf(value = false)
     }
-    var erroMessageState = remember {
+    val erroMessageState = remember {
         mutableStateOf(value = "")
     }
-    var context = LocalContext.current
+    val context = LocalContext.current
+
+    //
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -125,7 +129,7 @@ fun TelaInical(
                             },
                             keyboardOptions = KeyboardOptions(
                                 keyboardType = KeyboardType.Text,
-                                capitalization = KeyboardCapitalization.Characters
+                                imeAction = ImeAction.Done
                             ),
                             isError = isErrorStateInputName.value,
                             supportingText = {
@@ -144,6 +148,17 @@ fun TelaInical(
                                 isErrorStateInputName.value = true
                                 erroMessageState.value = context.getString(R.string.support_name)
                             }else{
+                                // Criar o acesso a um arquivo SharedPreferences
+                                val sharedUserFile = context
+                                    .getSharedPreferences(
+                                        "user",
+                                        Context.MODE_PRIVATE
+                                    )
+                                //Se ele encrontra a o arquivo ele abre se não cria
+                                val editor = sharedUserFile.edit()
+                                editor.putString("user_name", nomeState.value.trim())
+                                editor.apply()
+
                                 navController?.navigate("user_data")
                             }
                         }
