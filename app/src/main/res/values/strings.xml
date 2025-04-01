@@ -20,5 +20,21 @@
     <string name="titleYourBMIResult">Your BMI Result</string>
     <string name="YouHaveClassIObesity">You have Class I Obesity.</string>
     <string name="buttonNewCalc">New Calc</string>
-    <string name="exampleNumber">30,6</string>
+    <string name="exampleNumber">0</string>
+
+    <string name="under_weight">Underweight</string>
+    <string name="normal_weight">Normal weight</string>
+    <string name="over_weight">Slightly overweight</string>
+    <string name="class1_weight">Class 1 obesity</string>
+    <string name="class2_weight">Class 2 obesity</string>
+    <string name="class3_weight">Class 3 obesity</string>
+
+    <string name="under_weight_table">Underweight</string>
+    <string name="normal_weight_table">Normal weight</string>
+    <string name="over_weigh_tablet">Overweight</string>
+    <string name="class1_weight_table">Class 1 obesity</string>
+    <string name="class2_weight_table">Class 2 obesity</string>
+    <string name="class3_weight_table">Class 3 obesity</string>
+
+
 </resources>

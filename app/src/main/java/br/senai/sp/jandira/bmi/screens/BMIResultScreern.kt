@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -46,6 +48,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -57,6 +60,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
+import br.senai.sp.jandira.bmi.calcs.bmiCalculator
+import br.senai.sp.jandira.bmi.model.BmiStatus
+import br.senai.sp.jandira.bmi.screens.components.BmiLevel
+import br.senai.sp.jandira.bmi.utils.isFilled
+import br.senai.sp.jandira.bmi.utils.numberFormat
 import org.w3c.dom.Text
 import java.util.Locale
 
@@ -83,7 +91,7 @@ fun BMIResultSreern(
         "user_height",
         0
     ).toDouble()
-    val height = userHeight / 100
+    val bmiResult = bmiCalculator(userHeight, userWeight)
 
     Box(
         modifier = Modifier
@@ -141,12 +149,8 @@ fun BMIResultSreern(
                             colors = CardDefaults.cardColors(Color(0xFFffffff)),
                             border = BorderStroke(
                                 5.dp,
-                                brush = Brush.linearGradient(
-                                    listOf(
-                                        Color(0xFF5608A4),
-                                        Color(0xFFBA88FF)
-                                    )
-                                )),
+                                color = bmiResult.color
+                            ),
                             elevation = CardDefaults.elevatedCardElevation(5.dp)
                         ) {
                             Column(
@@ -156,7 +160,11 @@ fun BMIResultSreern(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = stringResource(R.string.exampleNumber),
+                                    text = String.format(
+                                        Locale.getDefault(),
+                                        "%.1f",
+                                        bmiResult.bmi.second
+                                    ),
                                     fontSize = 40.sp,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -164,7 +172,7 @@ fun BMIResultSreern(
 
                         }
                         Text(
-                            text = stringResource(R.string.YouHaveClassIObesity),
+                            text = bmiResult.bmi.first,
                             fontSize = 28.sp,
                         )
                         Card (
@@ -229,7 +237,7 @@ fun BMIResultSreern(
                                         text = String.format(
                                             Locale.getDefault(),
                                             "%.2f",
-                                            height
+                                            userHeight.div(100)
                                         ),
                                         fontSize = 22.sp,
                                         fontWeight = FontWeight.Bold
@@ -239,12 +247,45 @@ fun BMIResultSreern(
                         }
                     }
 
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp)
-                            .background(Color(0xFFFF9800)),
-                    ) {  }
+                    //
+
+                    BmiLevel(
+                        markColor = colorResource(R.color.light_blue),
+                        isFilled = isFilled(bmiResult.bmiStatus, BmiStatus.UNDERWEIGHT),
+                        text1 = stringResource(R.string.under_weight_table),
+                        text2 = "< ${numberFormat(18.5)}"
+                    )
+                    BmiLevel(
+                        markColor = colorResource(R.color.light_green),
+                        isFilled = isFilled(bmiResult.bmiStatus, BmiStatus.NORMAL),
+                        text1 = stringResource(R.string.normal_weight_table),
+                        text2 = "${numberFormat(18.6)} - ${numberFormat(24.9)}"
+                    )
+                    BmiLevel(
+                        markColor = colorResource(R.color.yellow),
+                        isFilled = isFilled(bmiResult.bmiStatus, BmiStatus.OVERWEIGHT),
+                        text1 = stringResource(R.string.over_weigh_tablet),
+                        text2 = "${numberFormat(25.0)} - ${numberFormat(29.9)}"
+                    )
+                    BmiLevel(
+                        markColor = colorResource(R.color.light_orange),
+                        isFilled = isFilled(bmiResult.bmiStatus, BmiStatus.OBESITY1),
+                        text1 = stringResource(R.string.class1_weight_table),
+                        text2 = "${numberFormat(30.0)} - ${numberFormat(34.9)}"
+                    )
+                    BmiLevel(
+                        markColor = colorResource(R.color.dark_orange),
+                        isFilled = isFilled(bmiResult.bmiStatus, BmiStatus.OBESITY2),
+                        text1 = stringResource(R.string.class2_weight_table),
+                        text2 = "${numberFormat(35.5)} - ${numberFormat(40.0)}"
+                    )
+                    BmiLevel(
+                        markColor = colorResource(R.color.red),
+                        isFilled = isFilled(bmiResult.bmiStatus, BmiStatus.OBESITY3),
+                        text1 = stringResource(R.string.class3_weight_table),
+                        text2 = "> ${numberFormat(40.0)}"
+                    )
+
                     HorizontalDivider()
 
 
