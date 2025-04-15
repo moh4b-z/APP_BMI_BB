@@ -431,7 +431,6 @@ fun UserDataScreen(
                         )
                     }
 
-
                 }
             }
         }
