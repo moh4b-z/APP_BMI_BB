@@ -1,7 +1,12 @@
 # API_MBI
 
 
-![](./Captura de Tela 2025-04-15 às 08.36.46)
+<video src="gravacao_do_app_Bmi_sebai.webm" autoplay muted loop controls width="600">
+  Seu navegador não suporta vídeos em WebM.
+</video>
+
+
+
 
 
 [Veja o vídeo da funcionalidade](./gravacao_do_app_Bmi_sebai.webm)
