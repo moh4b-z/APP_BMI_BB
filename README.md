@@ -1,7 +1,7 @@
 # API_MBI
 
 
-<video src="gravacao_do_app_Bmi_sebai.webm" autoplay muted loop controls width="600">
+<video src="./gravacao_do_app_Bmi_sebai.webm" autoplay muted loop controls width="600">
   Seu navegador não suporta vídeos em WebM.
 </video>
 
